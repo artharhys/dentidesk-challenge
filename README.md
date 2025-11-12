@@ -1,3 +1,30 @@
+Resumen de tecnologías
+--Backend
+-Laravel 12.0 (PHP 8.2+)
+-MySQL 8.0 / SQLite
+-Eloquent ORM
+-Patrón MVC
+--Frontend
+-Blade Templates
+-Bootstrap 5.3.2 (CDN)
+-Chart.js 4.4.0
+-Vanilla JavaScript
+--DevOps
+-Docker + Docker Compose
+-Laravel Sail
+--Patrones
+-MVC
+-Facade Pattern
+-Repository Pattern (Eloquent)
+-Dependency Injection
+--Funcionalidades
+-CRUD completo
+-API REST
+-Cálculos de balance y ganancias mensuales
+-Gráfico de evolución
+-Validación de datos
+-Diseño responsive
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
