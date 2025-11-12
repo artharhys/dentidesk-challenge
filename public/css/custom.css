@@ -1,0 +1,56 @@
+/* Estilos personalizados para la aplicación de gestión de transacciones */
+
+/* Color de fondo general de la página */
+body {
+    background-color: #f8f9fa;
+}
+
+/* Estilo para las tarjetas (cards) - sin borde y con sombra sutil */
+.card {
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+/* Color verde para valores positivos en el resumen */
+.summary-positive {
+    color: #198754;
+}
+
+/* Color rojo para valores negativos en el resumen */
+.summary-negative {
+    color: #dc3545;
+}
+
+/* Estilo para el navbar lateral fijo */
+.sidebar {
+    min-height: 100vh;
+    background-color: #212529;
+    padding-top: 20px;
+}
+
+.sidebar .nav-link {
+    color: #adb5bd;
+    padding: 12px 20px;
+    margin: 5px 10px;
+    border-radius: 5px;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+    background-color: #495057;
+    color: #fff;
+}
+
+/* Contenedor principal con margen para el sidebar */
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+}
+
+/* Responsive: en pantallas pequeñas, el sidebar no ocupa espacio */
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+    }
+}
+
