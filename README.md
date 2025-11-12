@@ -1,23 +1,23 @@
 Resumen de tecnologías <br>
---Backend<br>
+-----Backend-----<br>
 -Laravel 12.0 (PHP 8.2+)<br>
 -MySQL 8.0 / SQLite<br>
 -Eloquent ORM<br>
 -Patrón MVC<br>
---Frontend<br>
+-----Frontend-----<br>
 -Blade Templates<br>
 -Bootstrap 5.3.2 (CDN)<br>
 -Chart.js 4.4.0<br>
 -Vanilla JavaScript<br>
---DevOps<br>
+-----DevOps-----<br>
 -Docker + Docker Compose<br>
 -Laravel Sail<br>
---Patrones<br>
+-----Patrones-----<br>
 -MVC<br>
 -Facade Pattern<br>
 -Repository Pattern (Eloquent)<br>
 -Dependency Injection<br>
---Funcionalidades<br>
+-----Funcionalidades-----<br>
 -CRUD completo<br>
 -API REST<br>
 -Cálculos de balance y ganancias mensuales<br>
