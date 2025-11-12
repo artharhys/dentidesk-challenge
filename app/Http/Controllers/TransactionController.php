@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 
 class TransactionController extends Controller
 {
@@ -15,21 +14,13 @@ class TransactionController extends Controller
     public function index(Request $request)
     {
         $transactions = Transaction::orderBy('date', 'desc')->get();
-        $balance = $transactions->sum(fn($t) => $t->type === 'income' ? $t->amount : -$t->amount);
-
-        // Calcular ganancias del mes actual
-        $monthlyTransactions = Transaction::whereYear('date', now()->year)
-            ->whereMonth('date', now()->month)
-            ->get();
-        
-        $monthlyIncome = $monthlyTransactions->where('type', 'income')->sum('amount');
-        $monthlyExpense = $monthlyTransactions->where('type', 'expense')->sum('amount');
-        $monthlyEarnings = $monthlyIncome - $monthlyExpense;
+        $balance = Transaction::calculateBalance($transactions);
+        $monthlyEarnings = Transaction::getMonthlyEarnings();
 
         $data = [
             'transactions' => $transactions,
             'balance' => $balance,
-            'monthly_earnings' => $monthlyEarnings,
+            'monthly_earnings' => $monthlyEarnings['earnings'],
         ];
 
         if ($request->routeIs('api.*') || $request->wantsJson() || $request->expectsJson()) {
@@ -45,23 +36,13 @@ class TransactionController extends Controller
     public function dashboard(Request $request)
     {
         $transactions = Transaction::orderBy('date', 'desc')->get();
-        $balance = $transactions->sum(fn($t) => $t->type === 'income' ? $t->amount : -$t->amount);
-
-        // Calcular ganancias del mes actual
-        $monthlyTransactions = Transaction::whereYear('date', now()->year)
-            ->whereMonth('date', now()->month)
-            ->get();
-        
-        $monthlyIncome = $monthlyTransactions->where('type', 'income')->sum('amount');
-        $monthlyExpense = $monthlyTransactions->where('type', 'expense')->sum('amount');
-        $monthlyEarnings = $monthlyIncome - $monthlyExpense;
-
-        // Preparar datos para el gráfico
-        $chartData = $this->prepareChartData($transactions);
+        $balance = Transaction::calculateBalance($transactions);
+        $monthlyEarnings = Transaction::getMonthlyEarnings();
+        $chartData = Transaction::prepareChartData($transactions);
 
         $data = [
             'balance' => $balance,
-            'monthly_earnings' => $monthlyEarnings,
+            'monthly_earnings' => $monthlyEarnings['earnings'],
             'chart_labels' => $chartData['labels'],
             'chart_balances' => $chartData['balances'],
         ];
@@ -73,34 +54,6 @@ class TransactionController extends Controller
         return view('dashboard', $data);
     }
 
-    
-     // Prepara datos del gráfico
-     
-    private function prepareChartData($transactions)
-    {
-        $sortedTransactions = $transactions->sortBy('date');
-        $labels = [];
-        $balances = [];
-        $cumulativeBalance = 0;
-
-        foreach ($sortedTransactions as $transaction) {
-            $amount = $transaction->type === 'income' ? $transaction->amount : -$transaction->amount;
-            $cumulativeBalance += $amount;
-            $labels[] = \Carbon\Carbon::parse($transaction->date)->format('d/m/Y');
-            $balances[] = round($cumulativeBalance, 2);
-        }
-
-        // Si no hay transacciones, mostrar punto inicial
-        if (empty($labels)) {
-            $labels[] = now()->format('d/m/Y');
-            $balances[] = 0;
-        }
-
-        return [
-            'labels' => $labels,
-            'balances' => $balances,
-        ];
-    }
 
      // Muestra la página de registro con formulario y lista de transacciones
      
@@ -201,25 +154,12 @@ class TransactionController extends Controller
      
     public function monthlySummary(string $month)
     {
-        try {
-            $date = Carbon::createFromFormat('Y-m', $month);
-        } catch (\Exception $e) {
+        $summary = Transaction::getMonthlySummary($month);
+
+        if ($summary === null) {
             return response()->json(['error' => 'Invalid month format. Please use YYYY-MM.'], 400);
         }
 
-        $transactions = Transaction::whereYear('date', $date->year)
-            ->whereMonth('date', $date->month)
-            ->get();
-
-        $totalIncome = $transactions->where('type', 'income')->sum('amount');
-        $totalExpense = $transactions->where('type', 'expense')->sum('amount');
-        $net = $totalIncome - $totalExpense;
-
-        return response()->json([
-            'month' => $date->format('Y-m'),
-            'income' => $totalIncome,
-            'expense' => $totalExpense,
-            'net' => $net,
-        ]);
+        return response()->json($summary);
     }
 }

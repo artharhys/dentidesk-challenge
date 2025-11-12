@@ -5,16 +5,14 @@
     <!-- Título de la página -->
     <h1 class="display-5 fw-bold mb-4">Dashboard</h1>
 
-    <!-- Tarjeta de Resumen Mensual - Muestra el balance del mes actual -->
+    <!-- Tarjeta de Resumen -->
     <div class="card mb-4">
         <div class="card-body">
-            <h2 class="card-title h5 mb-3">Resumen del mes</h2>
+            <h2 class="card-title h5 mb-3">Balance Total</h2>
             <!-- Monto ganado en el mes (positivo o negativo) con color dinámico -->
-            <div class="display-6 fw-bold {{ $monthly_earnings >= 0 ? 'summary-positive' : 'summary-negative' }}">
-                ${{ number_format($monthly_earnings, 0, ',', '.') }}
+            <div class="display-6 fw-bold {{ $balance >= 0 ? 'summary-positive' : 'summary-negative' }}">
+            ${{ number_format($balance, 0, ',', '.') }}
             </div>
-            <!-- Balance total acumulado de todas las transacciones -->
-            <p class="text-muted mt-2 mb-0">Balance Total: ${{ number_format($balance, 0, ',', '.') }}</p>
         </div>
     </div>
 
