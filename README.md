@@ -1,4 +1,4 @@
-Resumen de tecnologías <br>
+Resumen de tecnologías <br><br>
 -----Backend-----<br>
 -Laravel 12.0 (PHP 8.2+)<br>
 -MySQL 8.0 / SQLite<br>
