@@ -27,6 +27,12 @@ Resumen de tecnologías <br><br>
 
 -----Instalación y ejecución-----<br>
 <br>
+---Requisitos previos<br>
+<br>
+- PHP 8.2 o superior<br>
+- Composer (https://getcomposer.org/download/)<br>
+- Docker y Docker Compose<br><br>
+
 ---Con Laravel Sail (Docker)<br>
 <br>
 -Instalar dependencias y configurar<br>
