@@ -25,6 +25,19 @@ Resumen de tecnologías <br><br>
 -Validación de datos<br>
 -Diseño responsive<br><br>
 
+-----Instalación y ejecución-----<br>
+<br>
+---Con Laravel Sail (Docker)<br>
+<br>
+-Instalar dependencias y configurar<br>
+composer run setup <br>
+<br>
+-Levantar el proyecto <br>
+./vendor/bin/sail up -d <br>
+<br>
+-Ejecutar migraciones <br>
+./vendor/bin/sail artisan migrate <br>
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
